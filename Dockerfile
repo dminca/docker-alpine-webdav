@@ -1,13 +1,16 @@
 FROM alpine:3.4
-MAINTAINER docker@pluza.com
+MAINTAINER Daniel Andrei Minca <mandrei17@gmail.com>
 
 # When running this container, map host's content subdir to /var/webdav
 # Eg.: docker run <...> -v /path/to/content:/var/webdav
 
-# -v : Verbose
 # apache2-utils: Needed for htpasswd program.
-RUN apk -v --no-cache add \
-  bash apache2 apache2-webdav apache2-utils
+RUN set -x \
+  && apk -v --no-cache --update add \
+    bash \
+    apache2 \
+    apache2-webdav \
+    apache2-utils
 
 # Create a subdir for webdav lockdb file.
 RUN mkdir -p /var/lib/dav \
@@ -23,5 +26,5 @@ RUN chmod 750 /run.sh
 
 EXPOSE 80 443
 
-CMD ["/run.sh"]
+CMD ["httpd", "-D",  "FOREGROUND"]
 
