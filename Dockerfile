@@ -31,5 +31,5 @@ ADD dav.conf /etc/apache2/conf.d/
 
 EXPOSE 80 443
 
-CMD "httpd -D FOREGROUND"
+CMD httpd -DFOREGROUND
 
