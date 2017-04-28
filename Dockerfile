@@ -10,19 +10,22 @@ RUN set -x \
     bash \
     apache2 \
     apache2-webdav \
-    apache2-utils
+    apache2-utils \
 
 # Create a subdir for webdav lockdb file.
-RUN mkdir -p /var/lib/dav \
+  && mkdir -vp /var/lib/dav \
   && chown apache:apache /var/lib/dav \
-  && chmod 755 /var/lib/dav
+  && chmod 755 /var/lib/dav \
 
 # Create a subdir to hold the daemon's pid:
-RUN mkdir -p /run/apache2
+  && mkdir -vp /run/apache2 \
+
+# tune webdav
+  && htpasswd -cb /etc/apache2/webdav.password $USERNAME $PASSWORD \
+  && chown root:apache /etc/apache2/webdav.password \
+  && chmod 640 /etc/apache2/webdav.password
 
 ADD dav.conf /etc/apache2/conf.d/
-ADD run.sh /
-RUN chmod 750 /run.sh
 
 EXPOSE 80 443
 
