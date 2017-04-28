@@ -1,7 +1,7 @@
 FROM alpine:3.4
 MAINTAINER Daniel Andrei Minca <mandrei17@gmail.com>
-ARG USERNAME=${USERNAME}
-ARG PASSWORD=${PASSWORD}
+ARG USERNAME=test
+ARG PASSWORD=test
 
 # When running this container, map host's content subdir to /var/webdav
 # Eg.: docker run <...> -v /path/to/content:/var/webdav
