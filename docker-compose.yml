@@ -1,15 +1,16 @@
 version: '2'
 services:
   alpine-webdav:
-    image: donn/docker-alpine-webdav
+    build:
+      context: .
     restart: always
     ports:
       - 8888:80
     volumes:
-      - /home/donn/workspace/yt:/var/webdav
+      - ./foo:/var/webdav
     environment:
-      - USERNAME=test
-      - PASSWORD=test
+      - USERNAME=foo
+      - PASSWORD=bar
     logging:
       options:
         max-size: "10m"
